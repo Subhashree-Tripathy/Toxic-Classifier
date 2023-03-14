@@ -1,0 +1,116 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+</head>
+
+<body class="px-5 container pt-5" style="width: 1000px;">
+  <style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 180px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  <h1 class="text-center"> <img src="static/rev2.jpeg" width="120" height="85"> Multilingual Text Classifier </h1><br>
+  <div>
+    <ul class="nav nav-tabs d-flex">
+      <li class="nav-item">
+        <a class="nav-link {% if twitter %}active{% endif %}" aria-current="page" href="/">
+          <img src="static/twit_log.png" width="40" height="40"> Twitter </a>
+      </li>
+      <li class="nav-item ml-auto">
+        <a class="nav-link {% if amazon %}active{% endif %}" aria-current="page" href="/amazon">
+          <img src="static/amaz.jpeg" width="35" height="25"> Amazon</a>
+      </li>
+      <li class="nav-item ml-auto">
+        <a class="nav-link {% if insta %}active{% endif %}" aria-current="page" href="/insta"> <img
+            src="static/insta.jpeg" width="35" height="30"> Instagram</a>
+      </li>
+    </ul>
+  </div>
+  <div class="text-center">
+    <form method="post">
+      <img class="border mt-2" src="/static/{{filename}}" style="max-height:500px; max-width:900px" />
+      <br />
+      <input class="mt-5 form-control" name="comment" placeholder="Please comment here" required />
+      <input type="submit" hidden />
+
+      {% if userdata %} {% for item in userdata %}
+      <div class="card card-body mt-2 text-left">
+        <div>
+          <div>{{ item.comment }}</div>
+          <br>
+          <div class="d-flex">
+            <div><b><img src="static/lang.png" width="35" height="25"> Language</b> <br>
+              <div class="mt-2">
+                {{ item.lang}}
+              </div>
+            </div>
+            <div class="ml-auto"><b><img src="static/sent.png" width="35" height="30"> Sentiment</b> <br>
+              <div class="mt-2">
+                {% if item.sent == "Negative"%} <h6 style="color:red;">{{item.sent}}</h6>
+                {% elif item.sent == "Positive"%} <h6 style="color:green;">{{item.sent}}</h6>
+                {% else %} <h6 style="color:blue;">{{item.sent}}</h6> {% endif %}
+              </div>
+
+            </div>
+            <div class="ml-auto"><b><img src="static/toxic.png" width="30" height="30">Toxicity</b> <br>
+            <div class="mt-2">
+              {% if item.toxic == "Toxic"%} <h6 style="color:red;">{{item.toxic}}</h6> 
+              {% else %} <h6 style="color:blue;">{{item.toxic}}
+              </h6> {% endif %} </div></div>
+          </div>
+
+        </div>
+      </div>
+      {% endfor %} {% endif %}
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
