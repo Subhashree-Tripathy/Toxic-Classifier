@@ -33,5 +33,7 @@ pip install -r requirements.txt
 python script.py
 ```
 
+# Staging link
 
+[Click here to view app](http://20.193.172.194:5000/)
 
